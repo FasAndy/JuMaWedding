@@ -5,7 +5,7 @@ Statischer Prototyp der Sprachauswahl mit dem Wappen. Löwe und Adler „liegen 
 ## Dateien
 - `index.html` – Sprachauswahl (linke Hälfte = Löwe = Nederlands, rechte Hälfte = Adler = Deutsch)
 - `lorem_de.html` / `lorem_nl.html` – Platzhalter-Zielseiten (später durch die echten Seiten ersetzen)
-- `assets/` – transparente Wappen-Teile: `lion.png`, `eagle.png`, `base.png`
+- `assets/` – transparente Wappen-Teile: `lion.png`, `eagle.png`
 
 ## Interaktion
 - **Desktop:** Maus über die linke/rechte Hälfte → die jeweils andere Figur wird grau; Klick führt weiter.

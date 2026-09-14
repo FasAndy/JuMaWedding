@@ -9,106 +9,84 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --cream:#f7f1e7;
-    --cream-hi:#fdf9f2;
-    --ink:#3b332a;
-    --muted:#9a8d78;
-    --gold:#b8860b;
-    --gold-line:rgba(184,134,11,.38);
-    --nl-red:#ae1c28; --nl-blue:#21468b;
-    --at-red:#ed2939;
+    --cream:#f7f1e7; --cream-hi:#fdf9f2;
+    --ink:#3b332a; --muted:#9a8d78; --gold:#b8860b;
+    --nl-red:#ae1c28; --nl-blue:#21468b; --at-red:#ed2939;
     --ease:cubic-bezier(.22,.61,.36,1);
-    /* embrace geometry (from the composed artwork) */
-    --hero-w:615; --hero-h:560;
+    --hero-w:621; --hero-h:560;
   }
   *{box-sizing:border-box}
   html,body{height:100%}
-  body{
-    margin:0;color:var(--ink);
-    font-family:"Jost",system-ui,sans-serif;
-    -webkit-font-smoothing:antialiased;
+  body{margin:0;color:var(--ink);font-family:"Jost",system-ui,sans-serif;-webkit-font-smoothing:antialiased;
     min-height:100dvh;display:flex;flex-direction:column;
-    background:radial-gradient(ellipse 80% 70% at 50% 40%, var(--cream-hi), var(--cream) 78%);
-    overflow-x:hidden;
-  }
+    background:radial-gradient(ellipse 80% 70% at 50% 40%, var(--cream-hi), var(--cream) 78%);overflow-x:hidden}
 
-  .prompt{
-    text-align:center;padding:clamp(20px,4.5vh,48px) 20px 0;
-    font-family:"Cormorant Garamond",serif;line-height:1.12;
-  }
-  .prompt .nl,.prompt .de{display:block;font-weight:500;color:var(--ink)}
-  .prompt .nl{font-size:clamp(1.5rem,3.2vw,2.3rem)}
+  .prompt{text-align:center;padding:clamp(20px,4.5vh,48px) 20px 0;font-family:"Cormorant Garamond",serif;line-height:1.12}
+  .prompt .nl,.prompt .de{display:block;font-weight:500}
+  .prompt .nl{font-size:clamp(1.5rem,3.2vw,2.3rem);color:var(--ink)}
   .prompt .de{font-size:clamp(1.35rem,2.9vw,2.05rem);color:#5c5142}
-  .prompt .sep{display:block;width:46px;height:1px;margin:9px auto;
-    background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+  .prompt .sep{display:block;width:46px;height:1px;margin:9px auto;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 
   .stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    padding:6px clamp(12px,4vw,40px) 2px;gap:6px}
+    padding:8px clamp(12px,4vw,40px) clamp(20px,5vh,48px);gap:10px}
 
-  /* ---- Hero: embracing crest, two stacked layers ---- */
-  .hero{
-    position:relative;
-    width:min(90vw,600px);
-    aspect-ratio:var(--hero-w) / var(--hero-h);
-  }
+  /* Hero: embracing crest, two stacked layers */
+  .hero{position:relative;width:min(90vw,600px);aspect-ratio:var(--hero-w) / var(--hero-h)}
   .hero img{position:absolute;bottom:0;width:auto;user-select:none;-webkit-user-drag:none;
     transition:filter .55s var(--ease),opacity .55s var(--ease)}
-  .hero .eagle{left:33.8%;height:100%;z-index:1}
-  .hero .lion{left:0;height:92.86%;z-index:2}
+  .hero .eagle{left:34.14%;height:100%;z-index:1}
+  .hero .lion{left:0;height:100%;z-index:2}
   .glow{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;
-    background:radial-gradient(circle at 50% 55%, rgba(184,134,11,.16), transparent 62%);
-    transition:opacity .5s var(--ease)}
+    background:radial-gradient(circle at 50% 55%, rgba(184,134,11,.15), transparent 62%);transition:opacity .5s var(--ease)}
 
-  /* invisible split hit areas */
-  .pick{position:absolute;top:0;height:100%;width:50%;z-index:3;
-    display:block;cursor:pointer;background:transparent;border:0;outline:none;
+  /* invisible split hit areas over the crest */
+  .hit{position:absolute;top:0;height:100%;width:50%;z-index:3;display:block;cursor:pointer;
     -webkit-tap-highlight-color:transparent}
-  .pick.nl{left:0}
-  .pick.de{left:50%}
-  .pick:focus-visible{box-shadow:inset 0 0 0 2px var(--gold);border-radius:10px}
+  .hit.nl{left:0}.hit.de{left:50%}
+  .hit:focus-visible{box-shadow:inset 0 0 0 2px var(--gold);border-radius:10px}
 
-  /* ---- Desktop hover preview ---- */
-  @media (hover:hover) and (pointer:fine){
-    .hero:has(.pick.nl:hover) .eagle,
-    .hero:has(.pick.de:hover) .lion{filter:grayscale(1);opacity:.42}
-    .hero:has(.pick:hover) .glow{opacity:1}
-  }
-  /* ---- Touch selection mirrors the effect ---- */
-  .hero.sel-nl .eagle{filter:grayscale(1);opacity:.42}
-  .hero.sel-de .lion{filter:grayscale(1);opacity:.42}
-  .hero.sel-nl .glow,.hero.sel-de .glow{opacity:1}
-
-  /* ---- Labels under each beast ---- */
+  /* labels — now clickable */
   .labels{display:flex;width:min(90vw,600px)}
   .cell{flex:1;display:flex;flex-direction:column;align-items:center;gap:12px}
-  .meta{display:flex;align-items:center;gap:11px;transition:opacity .4s var(--ease)}
+  .label-link{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;color:inherit;
+    cursor:pointer;border-radius:12px;padding:8px 16px;-webkit-tap-highlight-color:transparent;
+    transition:background .2s var(--ease)}
+  .label-link:hover{background:rgba(184,134,11,.08)}
+  .label-link:focus-visible{outline:none;box-shadow:0 0 0 2px var(--gold)}
+  .meta{display:flex;align-items:center;gap:11px;transition:opacity .45s var(--ease),filter .45s var(--ease)}
   .flag{width:34px;height:23px;border-radius:2px;overflow:hidden;flex:none;display:flex;flex-direction:column;
-    box-shadow:0 0 0 1px rgba(59,51,42,.18),0 2px 6px rgba(59,51,42,.18);transition:filter .4s var(--ease)}
+    box-shadow:0 0 0 1px rgba(59,51,42,.18),0 2px 6px rgba(59,51,42,.16)}
   .flag span{display:block;flex:1}
   .flag.nl span:nth-child(1){background:var(--nl-red)} .flag.nl span:nth-child(2){background:#fff} .flag.nl span:nth-child(3){background:var(--nl-blue)}
   .flag.at span:nth-child(1){background:var(--at-red)} .flag.at span:nth-child(2){background:#fff} .flag.at span:nth-child(3){background:var(--at-red)}
-  .label{font-size:1.12rem;letter-spacing:.02em;color:var(--ink)}
-  /* dim the non-selected label */
-  .hero-has-nl ~ .labels .cell.de .meta{opacity:.4}
-  .hero-has-de ~ .labels .cell.nl .meta{opacity:.4}
+  .label{font-size:1.12rem;letter-spacing:.02em;color:var(--ink);transition:color .45s var(--ease)}
 
-  .go{margin-top:2px;font-family:"Jost",sans-serif;font-size:1rem;letter-spacing:.03em;
-    color:#fff;background:var(--gold);border:0;border-radius:999px;cursor:pointer;
-    height:0;padding:0;overflow:hidden;opacity:0;transform:translateY(6px) scale(.96);pointer-events:none;
+  .go{font-family:"Jost",sans-serif;font-size:1rem;letter-spacing:.03em;color:#fff;background:var(--gold);
+    border:0;border-radius:999px;cursor:pointer;height:0;padding:0;overflow:hidden;
+    opacity:0;transform:translateY(6px) scale(.96);pointer-events:none;
     transition:opacity .35s var(--ease),transform .35s var(--ease),background .2s}
   .cell.show-go .go{height:auto;padding:11px 28px;opacity:1;transform:none;pointer-events:auto}
   .go:hover{background:#caa02a}
 
-  .crest{text-align:center;padding:8px 20px clamp(16px,4vh,32px)}
-  .crest img{width:min(300px,60vw);height:auto;opacity:.98}
-
-  /* Mobile: labels sit closer, hero a touch smaller */
-  @media (max-width:560px){
-    .hero{width:94vw}
-    .labels{width:94vw}
-    .label{font-size:1rem}
-    .crest img{width:min(260px,72vw)}
+  /* ===== Selection effects: the chosen side stays in colour, the other greys ===== */
+  @media (hover:hover) and (pointer:fine){
+    .stage:has(.choose.nl:hover) .eagle{filter:grayscale(1);opacity:.42}
+    .stage:has(.choose.de:hover) .lion{filter:grayscale(1);opacity:.42}
+    .stage:has(.choose.nl:hover) .cell.de .meta,
+    .stage:has(.choose.de:hover) .cell.nl .meta{filter:grayscale(1);opacity:.4}
+    .stage:has(.choose.nl:hover) .cell.de .label,
+    .stage:has(.choose.de:hover) .cell.nl .label{color:var(--muted)}
+    .stage:has(.choose:hover) .glow{opacity:1}
   }
+  .stage.sel-nl .eagle{filter:grayscale(1);opacity:.42}
+  .stage.sel-de .lion{filter:grayscale(1);opacity:.42}
+  .stage.sel-nl .cell.de .meta,
+  .stage.sel-de .cell.nl .meta{filter:grayscale(1);opacity:.4}
+  .stage.sel-nl .cell.de .label,
+  .stage.sel-de .cell.nl .label{color:var(--muted)}
+  .stage.sel-nl .glow,.stage.sel-de .glow{opacity:1}
+
+  @media (max-width:560px){.hero{width:94vw}.labels{width:94vw}.label{font-size:1rem}}
   @media (prefers-reduced-motion:reduce){*{transition-duration:.001ms!important}}
 </style>
 </head>
@@ -119,74 +97,56 @@
     <span class="de">Wähle deine Sprache</span>
   </div>
 
-  <main class="stage">
-    <div class="hero" id="hero">
+  <main class="stage" id="stage">
+    <div class="hero">
       <span class="glow" aria-hidden="true"></span>
       <img class="eagle" src="assets/eagle.png" alt="" aria-hidden="true" draggable="false">
       <img class="lion"  src="assets/lion.png"  alt="" aria-hidden="true" draggable="false">
-      <a class="pick nl" href="lorem_nl.html" data-lang="nl" aria-label="Nederlands"></a>
-      <a class="pick de" href="lorem_de.html" data-lang="de" aria-label="Deutsch"></a>
+      <a class="hit choose nl" href="lorem_nl.html" data-lang="nl" aria-label="Nederlands"></a>
+      <a class="hit choose de" href="lorem_de.html" data-lang="de" aria-label="Deutsch"></a>
     </div>
 
-    <div class="labels" id="labels">
+    <div class="labels">
       <div class="cell nl">
-        <span class="meta"><span class="flag nl" aria-hidden="true"><span></span><span></span><span></span></span><span class="label">Nederlands</span></span>
+        <a class="label-link choose nl" href="lorem_nl.html" data-lang="nl">
+          <span class="meta"><span class="flag nl" aria-hidden="true"><span></span><span></span><span></span></span><span class="label">Nederlands</span></span>
+        </a>
         <button class="go" type="button" data-go="lorem_nl.html" tabindex="-1">Ga verder</button>
       </div>
       <div class="cell de">
-        <span class="meta"><span class="flag at" aria-hidden="true"><span></span><span></span><span></span></span><span class="label">Deutsch</span></span>
+        <a class="label-link choose de" href="lorem_de.html" data-lang="de">
+          <span class="meta"><span class="flag at" aria-hidden="true"><span></span><span></span><span></span></span><span class="label">Deutsch</span></span>
+        </a>
         <button class="go" type="button" data-go="lorem_de.html" tabindex="-1">Weiter</button>
       </div>
     </div>
   </main>
 
-  <footer class="crest"><img src="assets/base.png" alt="" aria-hidden="true"></footer>
-
 <script>
 (function(){
-  var hero=document.getElementById('hero');
-  var labels=document.getElementById('labels');
-  var picks=Array.prototype.slice.call(hero.querySelectorAll('.pick'));
+  var stage=document.getElementById('stage');
+  var choose=Array.prototype.slice.call(stage.querySelectorAll('.choose'));
+  var cells={nl:stage.querySelector('.cell.nl'),de:stage.querySelector('.cell.de')};
   var canHover=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
   function go(href){window.location.href=href;}
 
-  // desktop: hover previews via CSS; also mirror label dim by toggling a class
-  if(canHover){
-    picks.forEach(function(p){
-      var lang=p.dataset.lang;
-      p.addEventListener('mouseenter',function(){
-        labels.className='labels'; // reset
-        labels.classList.add(lang==='nl'?'lion-side':'eagle-side');
-        document.querySelectorAll('.cell').forEach(function(c){c.classList.remove('dim')});
-        (lang==='nl'?labels.querySelector('.cell.de'):labels.querySelector('.cell.nl')).classList.add('dim');
-      });
-      p.addEventListener('mouseleave',function(){
-        document.querySelectorAll('.cell').forEach(function(c){c.classList.remove('dim')});
-      });
-    });
-  }else{
-    // touch: first tap selects + shows continue, second tap navigates
-    picks.forEach(function(p){
-      var lang=p.dataset.lang, href=p.getAttribute('href');
-      p.addEventListener('click',function(e){
+  if(!canHover){
+    choose.forEach(function(el){
+      var lang=el.dataset.lang, href=el.getAttribute('href');
+      el.addEventListener('click',function(e){
         e.preventDefault();
-        if(hero.classList.contains('sel-'+lang)){go(href);return;}
-        hero.classList.remove('sel-nl','sel-de');
-        hero.classList.add('sel-'+lang);
-        var cells=labels.querySelectorAll('.cell');
-        cells.forEach(function(c){c.classList.remove('show-go')});
-        labels.querySelector('.cell.'+lang).classList.add('show-go');
+        if(stage.classList.contains('sel-'+lang)){go(href);return;}
+        stage.classList.remove('sel-nl','sel-de');
+        cells.nl.classList.remove('show-go');cells.de.classList.remove('show-go');
+        stage.classList.add('sel-'+lang);
+        cells[lang].classList.add('show-go');
       });
     });
-    labels.querySelectorAll('.go').forEach(function(b){
+    stage.querySelectorAll('.go').forEach(function(b){
       b.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();go(b.dataset.go);});
     });
   }
 })();
 </script>
-<style>
-  /* label dim helper for desktop hover (JS-toggled) */
-  .cell.dim .meta{opacity:.4}
-</style>
 </body>
 </html>
