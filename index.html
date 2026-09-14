@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="mul">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kies je taal · Wähle deine Sprache</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f7f1e7;
+    --cream-hi:#fdf9f2;
+    --ink:#3b332a;
+    --muted:#9a8d78;
+    --gold:#b8860b;
+    --gold-line:rgba(184,134,11,.38);
+    --nl-red:#ae1c28; --nl-blue:#21468b;
+    --at-red:#ed2939;
+    --ease:cubic-bezier(.22,.61,.36,1);
+    /* embrace geometry (from the composed artwork) */
+    --hero-w:615; --hero-h:560;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;color:var(--ink);
+    font-family:"Jost",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100dvh;display:flex;flex-direction:column;
+    background:radial-gradient(ellipse 80% 70% at 50% 40%, var(--cream-hi), var(--cream) 78%);
+    overflow-x:hidden;
+  }
+
+  .prompt{
+    text-align:center;padding:clamp(20px,4.5vh,48px) 20px 0;
+    font-family:"Cormorant Garamond",serif;line-height:1.12;
+  }
+  .prompt .nl,.prompt .de{display:block;font-weight:500;color:var(--ink)}
+  .prompt .nl{font-size:clamp(1.5rem,3.2vw,2.3rem)}
+  .prompt .de{font-size:clamp(1.35rem,2.9vw,2.05rem);color:#5c5142}
+  .prompt .sep{display:block;width:46px;height:1px;margin:9px auto;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+  .stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:6px clamp(12px,4vw,40px) 2px;gap:6px}
+
+  /* ---- Hero: embracing crest, two stacked layers ---- */
+  .hero{
+    position:relative;
+    width:min(90vw,600px);
+    aspect-ratio:var(--hero-w) / var(--hero-h);
+  }
+  .hero img{position:absolute;bottom:0;width:auto;user-select:none;-webkit-user-drag:none;
+    transition:filter .55s var(--ease),opacity .55s var(--ease)}
+  .hero .eagle{left:33.8%;height:100%;z-index:1}
+  .hero .lion{left:0;height:92.86%;z-index:2}
+  .glow{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;
+    background:radial-gradient(circle at 50% 55%, rgba(184,134,11,.16), transparent 62%);
+    transition:opacity .5s var(--ease)}
+
+  /* invisible split hit areas */
+  .pick{position:absolute;top:0;height:100%;width:50%;z-index:3;
+    display:block;cursor:pointer;background:transparent;border:0;outline:none;
+    -webkit-tap-highlight-color:transparent}
+  .pick.nl{left:0}
+  .pick.de{left:50%}
+  .pick:focus-visible{box-shadow:inset 0 0 0 2px var(--gold);border-radius:10px}
+
+  /* ---- Desktop hover preview ---- */
+  @media (hover:hover) and (pointer:fine){
+    .hero:has(.pick.nl:hover) .eagle,
+    .hero:has(.pick.de:hover) .lion{filter:grayscale(1);opacity:.42}
+    .hero:has(.pick:hover) .glow{opacity:1}
+  }
+  /* ---- Touch selection mirrors the effect ---- */
+  .hero.sel-nl .eagle{filter:grayscale(1);opacity:.42}
+  .hero.sel-de .lion{filter:grayscale(1);opacity:.42}
+  .hero.sel-nl .glow,.hero.sel-de .glow{opacity:1}
+
+  /* ---- Labels under each beast ---- */
+  .labels{display:flex;width:min(90vw,600px)}
+  .cell{flex:1;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .meta{display:flex;align-items:center;gap:11px;transition:opacity .4s var(--ease)}
+  .flag{width:34px;height:23px;border-radius:2px;overflow:hidden;flex:none;display:flex;flex-direction:column;
+    box-shadow:0 0 0 1px rgba(59,51,42,.18),0 2px 6px rgba(59,51,42,.18);transition:filter .4s var(--ease)}
+  .flag span{display:block;flex:1}
+  .flag.nl span:nth-child(1){background:var(--nl-red)} .flag.nl span:nth-child(2){background:#fff} .flag.nl span:nth-child(3){background:var(--nl-blue)}
+  .flag.at span:nth-child(1){background:var(--at-red)} .flag.at span:nth-child(2){background:#fff} .flag.at span:nth-child(3){background:var(--at-red)}
+  .label{font-size:1.12rem;letter-spacing:.02em;color:var(--ink)}
+  /* dim the non-selected label */
+  .hero-has-nl ~ .labels .cell.de .meta{opacity:.4}
+  .hero-has-de ~ .labels .cell.nl .meta{opacity:.4}
+
+  .go{margin-top:2px;font-family:"Jost",sans-serif;font-size:1rem;letter-spacing:.03em;
+    color:#fff;background:var(--gold);border:0;border-radius:999px;cursor:pointer;
+    height:0;padding:0;overflow:hidden;opacity:0;transform:translateY(6px) scale(.96);pointer-events:none;
+    transition:opacity .35s var(--ease),transform .35s var(--ease),background .2s}
+  .cell.show-go .go{height:auto;padding:11px 28px;opacity:1;transform:none;pointer-events:auto}
+  .go:hover{background:#caa02a}
+
+  .crest{text-align:center;padding:8px 20px clamp(16px,4vh,32px)}
+  .crest img{width:min(300px,60vw);height:auto;opacity:.98}
+
+  /* Mobile: labels sit closer, hero a touch smaller */
+  @media (max-width:560px){
+    .hero{width:94vw}
+    .labels{width:94vw}
+    .label{font-size:1rem}
+    .crest img{width:min(260px,72vw)}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition-duration:.001ms!important}}
+</style>
+</head>
+<body>
+  <div class="prompt">
+    <span class="nl">Kies je taal</span>
+    <span class="sep"></span>
+    <span class="de">Wähle deine Sprache</span>
+  </div>
+
+  <main class="stage">
+    <div class="hero" id="hero">
+      <span class="glow" aria-hidden="true"></span>
+      <img class="eagle" src="assets/eagle.png" alt="" aria-hidden="true" draggable="false">
+      <img class="lion"  src="assets/lion.png"  alt="" aria-hidden="true" draggable="false">
+      <a class="pick nl" href="lorem_nl.html" data-lang="nl" aria-label="Nederlands"></a>
+      <a class="pick de" href="lorem_de.html" data-lang="de" aria-label="Deutsch"></a>
+    </div>
+
+    <div class="labels" id="labels">
+      <div class="cell nl">
+        <span class="meta"><span class="flag nl" aria-hidden="true"><span></span><span></span><span></span></span><span class="label">Nederlands</span></span>
+        <button class="go" type="button" data-go="lorem_nl.html" tabindex="-1">Ga verder</button>
+      </div>
+      <div class="cell de">
+        <span class="meta"><span class="flag at" aria-hidden="true"><span></span><span></span><span></span></span><span class="label">Deutsch</span></span>
+        <button class="go" type="button" data-go="lorem_de.html" tabindex="-1">Weiter</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="crest"><img src="assets/base.png" alt="" aria-hidden="true"></footer>
+
+<script>
+(function(){
+  var hero=document.getElementById('hero');
+  var labels=document.getElementById('labels');
+  var picks=Array.prototype.slice.call(hero.querySelectorAll('.pick'));
+  var canHover=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  function go(href){window.location.href=href;}
+
+  // desktop: hover previews via CSS; also mirror label dim by toggling a class
+  if(canHover){
+    picks.forEach(function(p){
+      var lang=p.dataset.lang;
+      p.addEventListener('mouseenter',function(){
+        labels.className='labels'; // reset
+        labels.classList.add(lang==='nl'?'lion-side':'eagle-side');
+        document.querySelectorAll('.cell').forEach(function(c){c.classList.remove('dim')});
+        (lang==='nl'?labels.querySelector('.cell.de'):labels.querySelector('.cell.nl')).classList.add('dim');
+      });
+      p.addEventListener('mouseleave',function(){
+        document.querySelectorAll('.cell').forEach(function(c){c.classList.remove('dim')});
+      });
+    });
+  }else{
+    // touch: first tap selects + shows continue, second tap navigates
+    picks.forEach(function(p){
+      var lang=p.dataset.lang, href=p.getAttribute('href');
+      p.addEventListener('click',function(e){
+        e.preventDefault();
+        if(hero.classList.contains('sel-'+lang)){go(href);return;}
+        hero.classList.remove('sel-nl','sel-de');
+        hero.classList.add('sel-'+lang);
+        var cells=labels.querySelectorAll('.cell');
+        cells.forEach(function(c){c.classList.remove('show-go')});
+        labels.querySelector('.cell.'+lang).classList.add('show-go');
+      });
+    });
+    labels.querySelectorAll('.go').forEach(function(b){
+      b.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();go(b.dataset.go);});
+    });
+  }
+})();
+</script>
+<style>
+  /* label dim helper for desktop hover (JS-toggled) */
+  .cell.dim .meta{opacity:.4}
+</style>
+</body>
+</html>
