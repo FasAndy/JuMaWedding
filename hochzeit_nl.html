@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>J&amp;M 20.08.2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f7f1e7; --cream-hi:#fdf9f2; --paper:#fbf7f0;
+    --ink:#4a3f33; --brown:#6b4f3a; --muted:#9a8d78;
+    --sage:#8a9a7b; --sage-deep:#6f8064; --sage-soft:#e4e9dd;
+    --gold:#b8860b; --line:rgba(107,79,58,.22);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);font-family:"Jost",system-ui,sans-serif;-webkit-font-smoothing:antialiased;
+    background:radial-gradient(ellipse 90% 60% at 50% 0%, var(--cream-hi), var(--cream) 60%);line-height:1.65}
+  h1,h2,h3{font-family:"Cormorant Garamond",serif;font-weight:600;color:var(--brown);margin:0;line-height:1.1}
+  a{color:var(--sage-deep)}
+  .wrap{max-width:760px;margin:0 auto;padding:0 22px}
+
+  /* top bar */
+  .topbar{display:flex;align-items:center;justify-content:space-between;max-width:760px;margin:0 auto;padding:14px 22px}
+  .monogram{font-family:"Cormorant Garamond",serif;font-size:1.3rem;color:var(--brown);letter-spacing:.04em}
+  .langlink{font-size:.85rem;color:var(--sage-deep);text-decoration:none;border-bottom:1px solid transparent}
+  .langlink:hover{border-bottom-color:var(--sage-deep)}
+
+  /* hero image */
+  .hero{max-width:900px;margin:6px auto 0;padding:0 16px}
+  .hero img{width:100%;height:auto;display:block;border-radius:10px;box-shadow:0 18px 44px rgba(74,63,51,.16)}
+
+  /* section rhythm */
+  section{padding:clamp(34px,7vw,64px) 0 0}
+  .eyebrow{font-size:.78rem;letter-spacing:.28em;text-transform:uppercase;color:var(--sage-deep);text-align:center;margin-bottom:8px}
+  .s-title{font-size:clamp(2rem,5.5vw,2.9rem);text-align:center}
+  .divider{display:flex;align-items:center;justify-content:center;gap:12px;margin:14px auto 26px;color:var(--sage)}
+  .divider::before,.divider::after{content:"";height:1px;width:60px;background:linear-gradient(90deg,transparent,var(--sage),transparent)}
+  .divider svg{width:16px;height:16px;display:block;opacity:.9}
+
+  /* form placeholder */
+  .placeholder{background:var(--paper);border:1.5px dashed var(--line);border-radius:14px;
+    padding:38px 26px;text-align:center;color:var(--muted)}
+  .placeholder .ph-title{font-family:"Cormorant Garamond",serif;font-size:1.5rem;color:var(--brown);margin-bottom:6px}
+  .placeholder .ph-sub{font-size:.95rem}
+
+  /* location cards */
+  .loc{background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:26px;
+    box-shadow:0 10px 30px rgba(74,63,51,.06)}
+  .loc-photo{height:210px;background:
+      repeating-linear-gradient(45deg,var(--sage-soft),var(--sage-soft) 12px,#eef2e8 12px,#eef2e8 24px);
+    display:flex;align-items:center;justify-content:center;color:var(--sage-deep);font-size:.9rem;letter-spacing:.04em}
+  .loc-photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .loc-body{padding:22px clamp(18px,4vw,30px) 26px}
+  .loc h3{font-size:1.9rem}
+  .loc .role{color:var(--sage-deep);font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin:4px 0 12px}
+  .loc p.lead{margin:0 0 18px}
+  .info{display:flex;gap:14px;padding:14px 0;border-top:1px solid var(--line)}
+  .info .ic{flex:none;width:30px;height:30px;border-radius:50%;background:var(--sage-soft);color:var(--sage-deep);
+    display:flex;align-items:center;justify-content:center}
+  .info .ic svg{width:16px;height:16px}
+  .info h4{margin:0 0 2px;font-family:"Jost",sans-serif;font-weight:500;font-size:1rem;color:var(--ink)}
+  .info p{margin:0;font-size:.92rem;color:var(--muted)}
+  .btn{display:inline-block;margin-top:8px;font-size:.86rem;padding:8px 16px;border-radius:999px;
+    background:var(--sage-deep);color:#fff;text-decoration:none}
+  .btn.ghost{background:transparent;border:1px solid var(--sage-deep);color:var(--sage-deep)}
+
+  /* timeline */
+  .timeline{position:relative;margin:0 auto;max-width:560px;padding-left:34px}
+  .timeline::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:var(--sage-soft)}
+  .tl{position:relative;padding:0 0 26px 6px}
+  .tl:last-child{padding-bottom:0}
+  .tl::before{content:"";position:absolute;left:-30px;top:4px;width:14px;height:14px;border-radius:50%;
+    background:#fff;border:2px solid var(--sage);box-shadow:0 0 0 4px var(--cream)}
+  .tl .time{font-family:"Cormorant Garamond",serif;font-size:1.35rem;color:var(--brown);line-height:1}
+  .tl .ev{font-weight:500;margin-top:2px}
+  .tl .at{font-size:.88rem;color:var(--muted)}
+  .tl-note{text-align:center;font-size:.8rem;color:var(--muted);margin-top:20px;font-style:italic}
+
+  /* footer */
+  footer{text-align:center;padding:56px 22px 48px;margin-top:40px}
+  footer .names{font-family:"Cormorant Garamond",serif;font-size:2rem;color:var(--brown)}
+  footer .date{letter-spacing:.2em;font-size:.85rem;color:var(--muted);margin-top:6px}
+  footer svg{width:20px;height:20px;color:var(--sage);margin-bottom:10px}
+
+  .socials{display:flex;gap:10px;margin:2px 0 16px}
+  .social{width:38px;height:38px;border-radius:50%;background:var(--sage-soft);color:var(--sage-deep);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background .2s,color .2s}
+  .social:hover{background:var(--sage-deep);color:#fff}
+  .social svg{width:19px;height:19px}
+  .loc-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+  .loc-head .socials{margin:4px 0 0;flex:none}</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <span class="monogram">Julia &amp; Marc</span>
+    <a class="langlink" href="index.html">Taal wijzigen</a>
+  </div>
+
+  <div class="hero">
+    <img src="assets/save-the-date.jpg" alt="Julia &amp; Marc – 20.08.2027">
+  </div>
+
+  <div class="wrap">
+
+    <section id="anmeldung">
+      <div class="eyebrow">Aanmelding</div>
+      <h2 class="s-title">Laat het ons weten</h2>
+      <div class="divider"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.6-9.3-8.4C1 9.6 2.6 6 6 6c2 0 3.2 1.2 4 2.3C10.8 7.2 12 6 14 6c3.4 0 5 3.6 3.3 6.6C19 16.4 12 21 12 21z"/></svg></div>
+      <!-- TODO: Hier kommt spaeter das Anmeldeformular hinein. -->
+      <div class="placeholder">
+        <div class="ph-title">Aanmeldformulier volgt</div>
+        <div class="ph-sub">Hier kunnen jullie je binnenkort aanmelden – met info over eten, allergieën en meer.</div>
+      </div>
+    </section>
+
+    <section id="location">
+      <div class="eyebrow">Locatie</div>
+      <h2 class="s-title">Waar we vieren</h2>
+      <div class="divider"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21c4-4 7-7.5 7-11a7 7 0 10-14 0c0 3.5 3 7 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+
+      <div class="loc">
+        <div class="loc-photo"><img src="assets/villa.jpg" alt="Villa Falkenhorst"></div>
+        <div class="loc-body">
+          <div class="loc-head">
+            <div>
+              <h3>Villa Falkenhorst</h3>
+              <div class="role">Ceremonie & Agape</div>
+            </div>
+          <div class="socials">
+            <a class="social" href="https://www.instagram.com/villafalkenhorst/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+            <a class="social" href="https://www.falkenhorst.at/" target="_blank" rel="noopener" aria-label="Website"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.6 2.7 2.6 15.3 0 18M12 3c-2.6 2.7-2.6 15.3 0 18"/></svg></a>
+          </div>
+          </div>
+          <p class="lead">De huwelijksceremonie en de aansluitende Agape vinden plaats in Villa Falkenhorst – de sfeervolle start van onze dag.</p>
+          <div class="info">
+            <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21c4-4 7-7.5 7-11a7 7 0 10-14 0c0 3.5 3 7 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+            <div>
+              <h4>Routebeschrijving</h4>
+              <p>Villa Falkenhorst, Flugelin 3, 6712 Thüringen</p>
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Villa%20Falkenhorst%2C%20Flugelin%203%2C%206712%20Th%C3%BCringen" target="_blank" rel="noopener">Route openen</a>
+            </div>
+          </div>
+
+          <div class="info">
+            <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 16V8h3.5a2.5 2.5 0 010 5H9"/></svg></span>
+            <div>
+              <h4>Parkeren</h4>
+              <p>Parkeerinfo en een foto volgen binnenkort.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="loc">
+        <div class="loc-photo"><img src="assets/firmament.jpg" alt="Firmament"></div>
+        <div class="loc-body">
+          <div class="loc-head">
+            <div>
+              <h3>Firmament</h3>
+              <div class="role">Ontvangst · Diner · Afterparty</div>
+            </div>
+          <div class="socials">
+            <a class="social" href="https://www.instagram.com/firmament.vorarlberg/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+            <a class="social" href="https://www.firmament.at/" target="_blank" rel="noopener" aria-label="Website"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.6 2.7 2.6 15.3 0 18M12 3c-2.6 2.7-2.6 15.3 0 18"/></svg></a>
+          </div>
+          </div>
+          <p class="lead">Na de Agape rijden we samen door naar Firmament. Daar wachten ontvangst, diner en de afterparty – hier wordt tot in de nacht gevierd.</p>
+          <div class="info">
+            <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21c4-4 7-7.5 7-11a7 7 0 10-14 0c0 3.5 3 7 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+            <div>
+              <h4>Routebeschrijving</h4>
+              <p>Firmament, Römergrund 1, 6830 Rankweil</p>
+              <a class="btn" href="https://www.google.com/maps/search/?api=1&query=FIRMAMENT%2C%20R%C3%B6mergrund%201%2C%206830%20Rankweil" target="_blank" rel="noopener">Route openen</a>
+            </div>
+          </div>
+
+          <div class="info">
+            <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 16V8h3.5a2.5 2.5 0 010 5H9"/></svg></span>
+            <div>
+              <h4>Parkeren</h4>
+              <p>Parkeerinfo en een foto volgen binnenkort.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="zeitplan">
+      <div class="eyebrow">Programma</div>
+      <h2 class="s-title">De dag in het kort</h2>
+      <div class="divider"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></div>
+
+      <div class="timeline">
+        <div class="tl"><div class="time">14:00</div><div class="ev">Ceremonie</div><div class="at">Villa Falkenhorst</div></div>
+        <div class="tl"><div class="time">15:00</div><div class="ev">Agape</div><div class="at">Villa Falkenhorst</div></div>
+        <div class="tl"><div class="time">17:00</div><div class="ev">Gezamenlijke rit naar de feestlocatie</div><div class="at">Villa Falkenhorst → Firmament</div></div>
+        <div class="tl"><div class="time">18:00</div><div class="ev">Ontvangst</div><div class="at">Firmament</div></div>
+        <div class="tl"><div class="time">19:00</div><div class="ev">Diner</div><div class="at">Firmament</div></div>
+        <div class="tl"><div class="time">21:30</div><div class="ev">Afterparty</div><div class="at">Firmament</div></div>
+      </div>
+      <p class="tl-note">Tijden onder voorbehoud – definitief programma volgt.</p>
+    </section>
+
+  </div>
+
+  <footer>
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.6-9.3-8.4C1 9.6 2.6 6 6 6c2 0 3.2 1.2 4 2.3C10.8 7.2 12 6 14 6c3.4 0 5 3.6 3.3 6.6C19 16.4 12 21 12 21z"/></svg>
+    <div class="names">Julia &amp; Marc</div>
+    <div class="date">20 · 08 · 2027</div>
+  </footer>
+
+</body>
+</html>
