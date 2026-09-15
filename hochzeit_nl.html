@@ -89,7 +89,21 @@
   .social:hover{background:var(--sage-deep);color:#fff}
   .social svg{width:19px;height:19px}
   .loc-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
-  .loc-head .socials{margin:4px 0 0;flex:none}</style>
+  .loc-head .socials{margin:4px 0 0;flex:none}
+  .rsvp{max-width:520px;margin:0 auto;text-align:left}
+  .rsvp .field{margin-bottom:18px}
+  .rsvp .q{display:block;font-weight:500;color:var(--ink);margin-bottom:9px;font-size:1rem}
+  .rsvp input[type=text],.rsvp textarea{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:10px;background:#fff;font:inherit;color:var(--ink)}
+  .rsvp textarea{resize:vertical;min-height:84px}
+  .rsvp input[type=text]:focus,.rsvp textarea:focus{outline:none;border-color:var(--sage-deep)}
+  .chips{display:flex;gap:10px;flex-wrap:wrap}
+  .chip{position:relative;display:inline-flex;align-items:center;padding:10px 18px;border:1px solid var(--line);border-radius:999px;cursor:pointer;background:#fff;color:var(--ink);font-size:.95rem;transition:background .15s,color .15s,border-color .15s}
+  .chip input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+  .chip:has(input:checked){background:var(--sage-deep);color:#fff;border-color:var(--sage-deep)}
+  .attend-only{display:none;border-top:1px solid var(--line);margin-top:4px;padding-top:20px}
+  .rsvp:has(#attend-yes:checked) .attend-only{display:block}
+  .submit{border:0;cursor:pointer;font:inherit;font-size:.95rem;margin-top:4px}
+  .form-note{font-size:.8rem;color:var(--muted);margin-top:12px;font-style:italic;text-align:center}</style>
 </head>
 <body>
 
@@ -108,11 +122,42 @@
       <div class="eyebrow">Aanmelding</div>
       <h2 class="s-title">Laat het ons weten</h2>
       <div class="divider"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.6-9.3-8.4C1 9.6 2.6 6 6 6c2 0 3.2 1.2 4 2.3C10.8 7.2 12 6 14 6c3.4 0 5 3.6 3.3 6.6C19 16.4 12 21 12 21z"/></svg></div>
-      <!-- TODO: Hier kommt spaeter das Anmeldeformular hinein. -->
-      <div class="placeholder">
-        <div class="ph-title">Aanmeldformulier volgt</div>
-        <div class="ph-sub">Hier kunnen jullie je binnenkort aanmelden – met info over eten, allergieën en meer.</div>
-      </div>
+      <!-- Beispiel-Anmeldeformular (noch nicht aktiv) – dient als Gesprächsgrundlage. -->
+      <form class="rsvp" onsubmit="return false">
+        <div class="field">
+          <label class="q" for="rsvp-name">Naam</label>
+          <input type="text" id="rsvp-name" placeholder="Voor- en achternaam">
+        </div>
+
+        <div class="field">
+          <span class="q">Doe je mee?</span>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="attend" id="attend-yes"><span>Ja, ik doe mee</span></label>
+            <label class="chip"><input type="radio" name="attend" id="attend-no"><span>Nee, ik doe niet mee</span></label>
+          </div>
+        </div>
+
+        <div class="attend-only">
+          <div class="field">
+            <span class="q">Menukeuze</span>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="meal"><span>Vlees</span></label>
+              <label class="chip"><input type="radio" name="meal"><span>Vegetarisch</span></label>
+            </div>
+          </div>
+          <div class="field">
+            <label class="q" for="rsvp-allergy">Allergenen of intoleranties</label>
+            <input type="text" id="rsvp-allergy" placeholder="bijv. noten, lactose …">
+          </div>
+          <div class="field">
+            <label class="q" for="rsvp-notes">Overige / opmerkingen</label>
+            <textarea id="rsvp-notes" rows="3" placeholder="Wat we nog moeten weten?"></textarea>
+          </div>
+        </div>
+
+        <button class="btn submit" type="submit">Versturen</button>
+        <p class="form-note">Voorbeeldformulier – nog niet actief, dient als gespreksbasis.</p>
+      </form>
     </section>
 
     <section id="location">
@@ -159,14 +204,14 @@
           <div class="loc-head">
             <div>
               <h3>Firmament</h3>
-              <div class="role">Ontvangst · Diner · Afterparty</div>
+              <div class="role">Ontvangst · Diner · Party</div>
             </div>
           <div class="socials">
             <a class="social" href="https://www.instagram.com/firmament.vorarlberg/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></a>
             <a class="social" href="https://www.firmament.at/" target="_blank" rel="noopener" aria-label="Website"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.6 2.7 2.6 15.3 0 18M12 3c-2.6 2.7-2.6 15.3 0 18"/></svg></a>
           </div>
           </div>
-          <p class="lead">Na de Agape rijden we samen door naar Firmament. Daar wachten ontvangst, diner en de afterparty – hier wordt tot in de nacht gevierd.</p>
+          <p class="lead">Na de Agape rijden we samen door naar Firmament. Daar wachten ontvangst, diner en de party – hier wordt tot in de nacht gevierd.</p>
           <div class="info">
             <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21c4-4 7-7.5 7-11a7 7 0 10-14 0c0 3.5 3 7 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
             <div>
@@ -198,7 +243,8 @@
         <div class="tl"><div class="time">17:00</div><div class="ev">Gezamenlijke rit naar de feestlocatie</div><div class="at">Villa Falkenhorst → Firmament</div></div>
         <div class="tl"><div class="time">18:00</div><div class="ev">Ontvangst</div><div class="at">Firmament</div></div>
         <div class="tl"><div class="time">19:00</div><div class="ev">Diner</div><div class="at">Firmament</div></div>
-        <div class="tl"><div class="time">21:30</div><div class="ev">Afterparty</div><div class="at">Firmament</div></div>
+        <div class="tl"><div class="time">21:30</div><div class="ev">Party</div><div class="at">Firmament</div></div>
+        <div class="tl"><div class="time">00:00</div><div class="ev">Middernachtsnack</div><div class="at">Firmament</div></div>
       </div>
       <p class="tl-note">Tijden onder voorbehoud – definitief programma volgt.</p>
     </section>
