@@ -27,6 +27,12 @@
   .prompt .de{font-size:clamp(1.35rem,2.9vw,2.05rem);color:#5c5142}
   .prompt .sep{display:block;width:46px;height:1px;margin:9px auto;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
 
+  .names{display:flex;align-items:center;justify-content:center;gap:clamp(12px,2.6vw,26px);
+    padding:clamp(20px,4.5vh,48px) 20px 0;font-family:"Cormorant Garamond",serif}
+  .names .name{font-size:clamp(1.8rem,4.4vw,2.9rem);font-weight:500;color:var(--ink);letter-spacing:.01em;line-height:1}
+  .rings{display:inline-flex;color:var(--gold);flex:none}
+  .rings svg{width:clamp(40px,7vw,60px);height:auto;display:block}
+
   .stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
     padding:8px clamp(12px,4vw,40px) clamp(20px,5vh,48px);gap:10px}
 
@@ -91,6 +97,17 @@
 </style>
 </head>
 <body>
+  <div class="names">
+    <span class="name">Marc</span>
+    <span class="rings" aria-hidden="true">
+      <svg viewBox="0 0 72 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="27" cy="24" r="15.5" stroke="currentColor" stroke-width="3.2"/>
+        <circle cx="45" cy="24" r="15.5" stroke="currentColor" stroke-width="3.2"/>
+      </svg>
+    </span>
+    <span class="name">Julia</span>
+  </div>
+
   <main class="stage" id="stage">
     <div class="hero">
       <span class="glow" aria-hidden="true"></span>
