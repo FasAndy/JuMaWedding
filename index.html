@@ -9,8 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --cream:#f7f1e7; --cream-hi:#fdf9f2;
-    --ink:#3b332a; --muted:#9a8d78; --gold:#b8860b;
+    --cream:#f1ece1; --cream-hi:#f8f5ee;
+    --ink:#414a3e; --muted:#8b9081; --gold:#c6b392;
     --nl-red:#ae1c28; --nl-blue:#21468b; --at-red:#ed2939;
     --ease:cubic-bezier(.22,.61,.36,1);
     --hero-w:595; --hero-h:560;
@@ -43,7 +43,7 @@
   .hero .eagle{left:31.26%;height:100%;z-index:1}
   .hero .lion{left:0;height:100%;z-index:2}
   .glow{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;
-    background:radial-gradient(circle at 50% 55%, rgba(184,134,11,.15), transparent 62%);transition:opacity .5s var(--ease)}
+    background:radial-gradient(circle at 50% 55%, rgba(95,110,84,.14), transparent 62%);transition:opacity .5s var(--ease)}
 
   /* invisible split hit areas over the crest */
   .hit{position:absolute;top:0;height:100%;width:50%;z-index:3;display:block;cursor:pointer;
@@ -57,7 +57,7 @@
   .label-link{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;color:inherit;
     cursor:pointer;border-radius:12px;padding:8px 16px;-webkit-tap-highlight-color:transparent;
     transition:background .2s var(--ease)}
-  .label-link:hover{background:rgba(184,134,11,.08)}
+  .label-link:hover{background:rgba(95,110,84,.10)}
   .label-link:focus-visible{outline:none;box-shadow:0 0 0 2px var(--gold)}
   .meta{display:flex;align-items:center;gap:11px;transition:opacity .45s var(--ease),filter .45s var(--ease)}
   .flag{width:34px;height:23px;border-radius:2px;overflow:hidden;flex:none;display:flex;flex-direction:column;
@@ -83,7 +83,7 @@
     .stage:has(.choose.nl:hover) .cell.de .label,
     .stage:has(.choose.de:hover) .cell.nl .label{color:var(--muted)}
     .stage:has(.choose.nl:hover) .cell.nl .label-link,
-    .stage:has(.choose.de:hover) .cell.de .label-link{background:rgba(184,134,11,.12)}
+    .stage:has(.choose.de:hover) .cell.de .label-link{background:rgba(95,110,84,.14)}
     .stage:has(.choose:hover) .glow{opacity:1}
   }
   .stage.sel-nl .eagle{filter:grayscale(1);opacity:.42}
@@ -93,7 +93,7 @@
   .stage.sel-nl .cell.de .label,
   .stage.sel-de .cell.nl .label{color:var(--muted)}
   .stage.sel-nl .cell.nl .label-link,
-  .stage.sel-de .cell.de .label-link{background:rgba(184,134,11,.12)}
+  .stage.sel-de .cell.de .label-link{background:rgba(95,110,84,.14)}
   .stage.sel-nl .glow,.stage.sel-de .glow{opacity:1}
 
   @media (max-width:560px){.hero{width:94vw}.labels{width:94vw}.label{font-size:1rem}}
