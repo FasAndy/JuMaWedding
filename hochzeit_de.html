@@ -140,17 +140,24 @@
   .contact-card{max-width:520px;margin:24px auto 0;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px;text-align:center}
   .contact-card h3{font-size:1.5rem;margin-bottom:6px}
   .contact-card p{margin:0 0 14px}
+  /* temporary photo toggle (remove once the couple decided) */
+  .topbar{gap:10px;flex-wrap:wrap}
+  .photo-toggle{font-family:"Jost",sans-serif;font-size:.82rem;color:var(--sage-deep);background:var(--sage-soft);border:1px solid var(--line);border-radius:999px;padding:5px 14px;cursor:pointer;transition:background .2s,color .2s}
+  .photo-toggle:hover{background:var(--sage-deep);color:#fff}
 </style>
 </head>
 <body>
 
   <div class="topbar">
     <span class="monogram">Julia &amp; Marc</span>
+    <button class="photo-toggle" type="button" id="photo-toggle"
+      data-a="assets/save-the-date.jpg" data-b="assets/save-the-date-2.jpg"
+      data-la="Schwarz-Weiß" data-lb="Farbe">Schwarz-Weiß</button>
     <a class="langlink" href="index.html">Sprache ändern</a>
   </div>
 
   <div class="hero">
-    <img src="assets/save-the-date.jpg" alt="Julia &amp; Marc – 20.08.2027">
+    <img id="hero-img" src="assets/save-the-date.jpg" alt="Julia &amp; Marc – 20.08.2027">
   </div>
 
   <div class="wrap">
@@ -209,10 +216,10 @@
             <div class="witnesses">
               <p class="w-intro">Super! Bitte meldet euch bei unseren Trauzeugen:</p>
             <div class="witness">
-              <span class="w-name">Anna</span>
-              <a class="social" href="mailto:anna@example.com" aria-label="E-Mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg></a>
-              <a class="social" href="https://wa.me/436607654321" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.4A10 10 0 1012 2zm0 2a8 8 0 11-4.1 14.9l-.3-.2-2.6.8.8-2.5-.2-.3A8 8 0 0112 4zm-3.3 4.3c-.16 0-.42.06-.64.3-.22.24-.85.83-.85 2.02s.87 2.34.99 2.5c.12.16 1.7 2.7 4.19 3.68 2.06.82 2.48.66 2.93.62.45-.04 1.45-.59 1.65-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28-.24-.12-1.45-.72-1.67-.8-.22-.08-.38-.12-.54.12-.16.24-.62.8-.76.96-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.42-1.34-1.66-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.32-.74-1.8-.2-.48-.4-.42-.54-.42z"/></svg></a>
-              <a class="social" href="data:text/vcard;charset=utf-8,BEGIN%3AVCARD%0D%0AVERSION%3A3.0%0D%0AN%3A%3BAnna%3B%3B%3B%0D%0AFN%3AAnna%0D%0ATEL%3BTYPE%3DCELL%3A%2B43%20660%207654321%0D%0AEMAIL%3BTYPE%3DINTERNET%3Aanna%40example.com%0D%0Aitem1.X-ABRELATEDNAMES%3AJulia%0D%0Aitem1.X-ABLABEL%3ATrauzeugin%20von%0D%0ANOTE%3ATrauzeugin%20von%20Julia%0D%0AEND%3AVCARD" download="Anna.vcf" aria-label="Kontakt speichern"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10" cy="8" r="3.2"/><path d="M4.5 19c0-3.1 2.6-5.2 5.5-5.2 1 0 1.9.25 2.7.7"/><path d="M17.5 13.5v5.2m0 0l-2.1-2.1m2.1 2.1l2.1-2.1"/></svg></a>
+              <span class="w-name">Jasmine</span>
+              <a class="social" href="mailto:jassi.wi@gmx.at" aria-label="E-Mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg></a>
+              <a class="social" href="https://wa.me/436605285534" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.4A10 10 0 1012 2zm0 2a8 8 0 11-4.1 14.9l-.3-.2-2.6.8.8-2.5-.2-.3A8 8 0 0112 4zm-3.3 4.3c-.16 0-.42.06-.64.3-.22.24-.85.83-.85 2.02s.87 2.34.99 2.5c.12.16 1.7 2.7 4.19 3.68 2.06.82 2.48.66 2.93.62.45-.04 1.45-.59 1.65-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.16-.46-.28-.24-.12-1.45-.72-1.67-.8-.22-.08-.38-.12-.54.12-.16.24-.62.8-.76.96-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.42-1.34-1.66-.14-.24-.02-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.32-.74-1.8-.2-.48-.4-.42-.54-.42z"/></svg></a>
+              <a class="social" href="data:text/vcard;charset=utf-8,BEGIN%3AVCARD%0D%0AVERSION%3A3.0%0D%0AN%3A%3BJasmine%20Barba%3B%3B%3B%0D%0AFN%3AJasmine%20Barba%0D%0ATEL%3BTYPE%3DCELL%3A%2B43%20660%205285534%0D%0AEMAIL%3BTYPE%3DINTERNET%3Ajassi.wi%40gmx.at%0D%0Aitem1.X-ABRELATEDNAMES%3AJulia%0D%0Aitem1.X-ABLABEL%3ATrauzeugin%20von%0D%0ANOTE%3ATrauzeugin%20von%20Julia%0D%0AEND%3AVCARD" download="Jasmine Barba.vcf" aria-label="Kontakt speichern"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10" cy="8" r="3.2"/><path d="M4.5 19c0-3.1 2.6-5.2 5.5-5.2 1 0 1.9.25 2.7.7"/><path d="M17.5 13.5v5.2m0 0l-2.1-2.1m2.1 2.1l2.1-2.1"/></svg></a>
             </div>
             <div class="witness">
               <span class="w-name">Andy</span>
@@ -422,6 +429,17 @@
     <div class="names">Julia &amp; Marc</div>
     <div class="date">20 · 08 · 2027</div>
   </footer>
-
+  <script>
+  (function(){
+    var btn=document.getElementById('photo-toggle'), img=document.getElementById('hero-img');
+    if(!btn||!img) return;
+    var showB=false;
+    btn.addEventListener('click', function(){
+      showB=!showB;
+      img.src = showB ? btn.dataset.b : btn.dataset.a;
+      btn.textContent = showB ? btn.dataset.lb : btn.dataset.la;
+    });
+  })();
+  </script>
 </body>
 </html>
