@@ -140,24 +140,30 @@
   .contact-card{max-width:520px;margin:24px auto 0;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px;text-align:center}
   .contact-card h3{font-size:1.5rem;margin-bottom:6px}
   .contact-card p{margin:0 0 14px}
-  /* temporary photo toggle (remove once the couple decided) */
-  .topbar{gap:10px;flex-wrap:wrap}
-  .photo-toggle{font-family:"Jost",sans-serif;font-size:.82rem;color:var(--sage-deep);background:var(--sage-soft);border:1px solid var(--line);border-radius:999px;padding:5px 14px;cursor:pointer;transition:background .2s,color .2s}
-  .photo-toggle:hover{background:var(--sage-deep);color:#fff}
+  /* accommodation prices */
+  .u-prices{display:flex;flex-direction:column;gap:8px;margin:14px 0 8px}
+  .u-prices > div{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px dashed var(--line);padding-bottom:7px}
+  .u-prices b{font-weight:600;color:var(--brown)}
+  .u-prices small{font-weight:400;color:var(--muted);font-size:.82em}
+  .u-reserve{margin:16px 0 10px;font-weight:500}
+  /* submit result / honeypot */
+  .hp{position:absolute!important;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;opacity:0}
+  .form-error{color:#a33b3b;font-size:.9rem;margin:12px 0 0;text-align:center}
+  .rsvp-result{max-width:540px;margin:0 auto;text-align:center;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:38px 28px}
+  .rsvp-result-icon{color:var(--sage-deep);margin-bottom:8px}
+  .rsvp-result-icon svg{width:30px;height:30px}
+  .rsvp-result p{margin:0;font-size:1.1rem;color:var(--ink);line-height:1.6}
 </style>
 </head>
 <body>
 
   <div class="topbar">
     <span class="monogram">Julia &amp; Marc</span>
-    <button class="photo-toggle" type="button" id="photo-toggle"
-      data-a="assets/save-the-date.jpg" data-b="assets/save-the-date-2.jpg"
-      data-la="Schwarz-Weiß" data-lb="Farbe">Schwarz-Weiß</button>
     <a class="langlink" href="index.html">Sprache ändern</a>
   </div>
 
   <div class="hero">
-    <img id="hero-img" src="assets/save-the-date.jpg" alt="Julia &amp; Marc – 20.08.2027">
+    <img src="assets/save-the-date.jpg" alt="Julia &amp; Marc – 20.08.2027">
   </div>
 
   <div class="wrap">
@@ -168,7 +174,16 @@
       <div class="eyebrow">Anmeldung</div>
       <h2 class="s-title">Sag uns Bescheid</h2>
       <div class="divider"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
-      <form class="rsvp" onsubmit="return false">
+      <form class="rsvp" id="rsvp-form" novalidate
+        data-endpoint="https://rzecmcpzomnucjkrwguj.supabase.co/functions/v1/submit-rsvp"
+        data-tier="trauung"
+        data-sending="Wird gesendet …"
+        data-ok-yes="Vielen Dank! Wir haben eure Anmeldung erhalten und freuen uns riesig auf euch."
+        data-ok-no="Schade, dass ihr nicht dabei sein könnt – danke für eure Rückmeldung!"
+        data-err="Das hat leider nicht geklappt. Bitte versucht es später noch einmal oder meldet euch bei uns.">
+
+        <input type="text" class="hp" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+
         <div class="field">
           <span class="q">Nimmst du teil?</span>
           <div class="chips">
@@ -192,8 +207,8 @@
               <div class="field">
                 <span class="q">Essenswahl</span>
                 <div class="chips meal-chips">
-                  <label class="chip"><input type="radio" name="meal-1"><span>Fleisch</span></label>
-                  <label class="chip"><input type="radio" name="meal-1"><span>Vegetarisch</span></label>
+                  <label class="chip"><input type="radio" name="meal-1" value="meat"><span>Fleisch</span></label>
+                  <label class="chip"><input type="radio" name="meal-1" value="veg"><span>Vegetarisch</span></label>
                 </div>
               </div>
               <div class="field">
@@ -203,10 +218,10 @@
             </div>
           </div>
 
-        <div class="attend-only">
-          <div id="extra-persons"></div>
-          <button class="btn ghost add-person" type="button">＋ Person hinzufügen</button>
+        <div id="extra-persons"></div>
+        <button class="btn ghost add-person" type="button">＋ Person hinzufügen</button>
 
+        <div class="attend-only">
           <div class="program-box">
             <span class="q">Plant ihr einen Programmpunkt?</span>
             <div class="chips">
@@ -236,9 +251,15 @@
           <textarea id="rsvp-notes" rows="3" placeholder="Was wir noch wissen sollten?"></textarea>
         </div>
 
+        <p class="form-error" id="rsvp-error" hidden></p>
         <button class="btn submit" type="submit" id="rsvp-submit" disabled>Absenden</button>
-        <p class="form-note">Beispiel-Formular – noch nicht aktiv, dient als Gesprächsgrundlage.</p>
+        <p class="form-note">Deine Angaben nutzen wir nur für die Hochzeitsplanung.</p>
       </form>
+
+      <div class="rsvp-result" id="rsvp-result" hidden>
+        <div class="rsvp-result-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+        <p id="rsvp-result-msg"></p>
+      </div>
 
       <template id="person-tpl">
           <div class="person">
@@ -257,8 +278,8 @@
               <div class="field">
                 <span class="q">Essenswahl</span>
                 <div class="chips meal-chips">
-                  <label class="chip"><input type="radio"><span>Fleisch</span></label>
-                  <label class="chip"><input type="radio"><span>Vegetarisch</span></label>
+                  <label class="chip"><input type="radio" value="meat"><span>Fleisch</span></label>
+                  <label class="chip"><input type="radio" value="veg"><span>Vegetarisch</span></label>
                 </div>
               </div>
               <div class="field">
@@ -270,44 +291,81 @@
       </template>
   <script>
   (function(){
-    var f=document.querySelector('.rsvp'); if(!f) return;
+    var f=document.getElementById('rsvp-form'); if(!f) return;
     var MAX=8;
+    var LANG=document.documentElement.lang||'de';
     var submit=f.querySelector('#rsvp-submit');
     var extra=f.querySelector('#extra-persons');
-    var tpl=document.querySelector('#person-tpl');
+    var tpl=document.getElementById('person-tpl');
     var addBtn=f.querySelector('.add-person');
-    var counter=1;
+    var errEl=f.querySelector('#rsvp-error');
+    var result=document.getElementById('rsvp-result');
+    var resultMsg=document.getElementById('rsvp-result-msg');
+    var submitLabel=submit.textContent;
+    var counter=1, sending=false;
     function attend(){var y=f.querySelector('#attend-yes'), n=f.querySelector('#attend-no');
       if(y&&y.checked) return 'yes'; if(n&&n.checked) return 'no'; return '';}
     function personValid(p, attending){
       var fn=p.querySelector('.p-first'), ln=p.querySelector('.p-last');
       if(!fn.value.trim()||!ln.value.trim()) return false;
       if(attending){ if(!p.querySelector('.meal-chips input:checked')) return false; }
-      return true;  /* allergene optional */
+      return true;
     }
     function valid(){
       var a=attend(); if(a==='') return false;
-      var p1=f.querySelector('#person1');
-      if(!personValid(p1, a==='yes')) return false;
-      if(a==='yes'){
-        var ex=extra.querySelectorAll('.person');
-        for(var i=0;i<ex.length;i++){ if(!personValid(ex[i], true)) return false; }
-      }
+      var attending=(a==='yes');
+      var ps=f.querySelectorAll('.person');
+      for(var i=0;i<ps.length;i++){ if(!personValid(ps[i], attending)) return false; }
       return true;
     }
-    function update(){ submit.disabled=!valid(); }
+    function update(){ if(!sending) submit.disabled=!valid(); }
     function updateAddBtn(){ if(!addBtn) return;
-      addBtn.style.display = (f.querySelectorAll('.person').length >= MAX) ? 'none' : ''; }
+      addBtn.style.display=(f.querySelectorAll('.person').length>=MAX)?'none':''; }
     function wireMeal(node){ counter++; var r=node.querySelectorAll('.meal-chips input[type=radio]');
       for(var i=0;i<r.length;i++){ r[i].name='meal-'+counter; } }
     if(addBtn){ addBtn.addEventListener('click', function(){
-        if(f.querySelectorAll('.person').length >= MAX) return;
-        var node=tpl.content.firstElementChild.cloneNode(true);
-        wireMeal(node);
+        if(f.querySelectorAll('.person').length>=MAX) return;
+        var node=tpl.content.firstElementChild.cloneNode(true); wireMeal(node);
         var rm=node.querySelector('.remove-person');
         if(rm){ rm.addEventListener('click', function(){ node.remove(); update(); updateAddBtn(); }); }
         extra.appendChild(node); update(); updateAddBtn();
       }); }
+    function gather(){
+      var attending=attend()==='yes';
+      var persons=[];
+      Array.prototype.forEach.call(f.querySelectorAll('.person'), function(p){
+        var meal=p.querySelector('.meal-chips input:checked');
+        persons.push({
+          first:p.querySelector('.p-first').value.trim(),
+          last:p.querySelector('.p-last').value.trim(),
+          meal:attending?(meal?meal.value:null):null,
+          allergies:attending?p.querySelector('.p-allergy').value.trim():''
+        });
+      });
+      var prog=f.querySelector('#program-yes');
+      return { botcheck:(f.querySelector('.hp')||{}).value||'',
+        lang:LANG, tier:(f.dataset.tier||'agape'), attending:attending, program:!!(prog&&prog.checked),
+        note:(f.querySelector('#rsvp-notes')||{}).value.trim()||'', guests:persons };
+    }
+    f.addEventListener('submit', function(e){
+      e.preventDefault();
+      if(sending || submit.disabled) return;
+      var payload=gather();
+      sending=true; submit.disabled=true; submit.textContent=f.dataset.sending;
+      if(errEl) errEl.hidden=true;
+      fetch(f.dataset.endpoint, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)})
+        .then(function(r){ if(!r.ok) throw new Error('http'); return r.json().catch(function(){return {};}); })
+        .then(function(){
+          f.hidden=true;
+          resultMsg.textContent = payload.attending ? f.dataset.okYes : f.dataset.okNo;
+          result.hidden=false;
+          if(result.scrollIntoView) result.scrollIntoView({behavior:'smooth', block:'center'});
+        })
+        .catch(function(){
+          sending=false; submit.textContent=submitLabel; submit.disabled=false;
+          if(errEl){ errEl.textContent=f.dataset.err; errEl.hidden=false; }
+        });
+    });
     f.addEventListener('input', update);
     f.addEventListener('change', update);
     update(); updateAddBtn();
@@ -395,15 +453,26 @@
       <details class="u-details">
         <summary>Infos anzeigen</summary>
         <div class="u-body">
-          <p>Wer übernachten möchte, bekommt im Firmament vergünstigte Zimmer (Frühstück inklusive). Bei Interesse wendet euch bitte an Martina Seidl und gebt im Betreff „Julia & Marc“ an – dann sind die Zimmer vergünstigt.</p>
-          <p>Die Zimmerpreise geben wir noch bekannt.</p>
-          <div class="u-contact">
-            <span class="u-name">Martina Seidl</span>
-            <a class="btn" href="mailto:martina.seidl@example.com?subject=Julia%20%26%20Marc">E-Mail an Martina</a>
+          <p>Wer übernachten möchte, bekommt im Firmament vergünstigte Zimmer. Bitte bei der Reservierung „Julia & Marc“ angeben (Ansprechpartnerin: Martina Seidl) – dann gilt der vergünstigte Preis.</p>
+          <div class="u-prices">
+            <div><span>Einzelzimmer</span><b>105 €<small> / Nacht</small></b></div>
+            <div><span>Doppelzimmer</span><b>135 €<small> / Nacht</small></b></div>
           </div>
-          <p class="u-foot">E-Mail-Adresse und Preise folgen.</p>
+          <p class="u-foot">inkl. Frühstück & MwSt., exkl. Ortstaxe</p>
+          <p class="u-reserve">Reservierung direkt im Firmament:</p>
+          <div class="u-contact">
+            <a class="btn" href="mailto:reservierung@firmament.at?subject=Reservierungsanfrage%3A%20Hochzeit%20Julia%26Marc%2020.08.2027">E-Mail an Firmament</a>
+            <a class="btn ghost" href="tel:+43552224440">+43 5522 24440</a>
+          </div>
         </div>
       </details>
+    </section>
+
+    <section id="geschenke">
+      <div class="eyebrow">Geschenke</div>
+      <h2 class="s-title">Schenken</h2>
+      <div class="divider"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="9" width="16" height="11" rx="1.5"/><path d="M4 13h16M12 9v11"/><path d="M12 9S10.7 5 8.2 5A2.1 2.1 0 108.2 9H12zM12 9s1.3-4 3.8-4A2.1 2.1 0 1115.8 9H12z"/></svg></div>
+      <p class="u-teaser">Das größte Geschenk ist eure Anwesenheit. Wer uns darüber hinaus eine Freude machen möchte: Wir freuen uns über Geldgeschenke statt Sachgeschenke – und spenden 15 % des Gesamtbetrags an eine Organisation für Tierwohl.</p>
     </section>
 
     <section id="zeitplan">
@@ -429,17 +498,6 @@
     <div class="names">Julia &amp; Marc</div>
     <div class="date">20 · 08 · 2027</div>
   </footer>
-  <script>
-  (function(){
-    var btn=document.getElementById('photo-toggle'), img=document.getElementById('hero-img');
-    if(!btn||!img) return;
-    var showB=false;
-    btn.addEventListener('click', function(){
-      showB=!showB;
-      img.src = showB ? btn.dataset.b : btn.dataset.a;
-      btn.textContent = showB ? btn.dataset.lb : btn.dataset.la;
-    });
-  })();
-  </script>
+
 </body>
 </html>
