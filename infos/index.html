@@ -161,20 +161,26 @@
   .tl-ico{position:relative;z-index:1;flex:none;width:38px;height:38px;border-radius:50%;background:var(--sage-soft);border:1px solid var(--line);color:var(--sage-deep);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px var(--cream)}
   .tl-ico svg{width:20px;height:20px}
   .tl-body{padding-top:3px}
-  /* prominent date in topbar + timeline */
-  .topbar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}
-  .monogram{justify-self:start}
-  .topdate{justify-self:center;font-family:"Cormorant Garamond",serif;font-size:clamp(1rem,3.4vw,1.3rem);font-weight:600;letter-spacing:.14em;color:var(--brown);white-space:nowrap}
-  .langlink{justify-self:end}
+  /* page header (date · names · heart) + timeline date */
+  .pagehead{position:relative;text-align:center}
+  .pagehead-top{display:flex;justify-content:flex-end;padding:12px clamp(18px,5vw,60px) 0}
+  .headblock{padding:clamp(6px,2vh,16px) 20px clamp(14px,3vh,24px)}
+  .head-date{letter-spacing:.2em;font-size:.85rem;color:var(--muted)}
+  .head-names{font-family:"Cormorant Garamond",serif;font-size:clamp(1.9rem,5.5vw,2.6rem);color:var(--brown);margin-top:6px;line-height:1.05}
+  .head-heart{color:var(--sage);margin-top:8px;line-height:0}
+  .head-heart svg{width:20px;height:20px}
   .tl-date{text-align:center;font-family:"Cormorant Garamond",serif;font-size:clamp(1.3rem,4vw,1.8rem);color:var(--brown);letter-spacing:.12em;margin:2px 0 24px}
 </style>
 </head>
 <body>
 
-  <div class="topbar">
-    <span class="monogram">Julia &amp; Marc</span>
-    <span class="topdate">20 · 08 · 2027</span>
-    <a class="langlink" href="../">Sprache ändern</a>
+  <div class="pagehead">
+    <div class="pagehead-top"><a class="langlink" href="../">Sprache ändern</a></div>
+    <div class="headblock">
+      <div class="head-date">20 · 08 · 2027</div>
+      <div class="head-names">Julia &amp; Marc</div>
+      <div class="head-heart"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+    </div>
   </div>
 
   <div class="hero">

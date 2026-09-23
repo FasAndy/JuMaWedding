@@ -32,7 +32,11 @@
   .names .name{font-size:clamp(2.1rem,5.2vw,3.4rem);font-weight:500;color:var(--ink);letter-spacing:.01em;line-height:1}
   .rings{display:inline-flex;color:var(--gold);flex:none}
   .rings svg{width:clamp(46px,7.6vw,66px);height:auto;display:block}
-  .sel-date{text-align:center;font-family:"Cormorant Garamond",serif;font-size:clamp(1.3rem,4vw,1.9rem);font-weight:500;letter-spacing:.16em;color:var(--ink);margin-top:6px}
+  .selhead{text-align:center;margin-bottom:4px}
+  .sel-date{letter-spacing:.2em;font-size:clamp(.82rem,2.6vw,1rem);color:var(--muted)}
+  .sel-names{font-family:"Cormorant Garamond",serif;font-size:clamp(2rem,6vw,3rem);color:var(--ink);margin-top:6px;line-height:1.05}
+  .sel-heart{color:#5f6e54;margin-top:8px;line-height:0}
+  .sel-heart svg{width:22px;height:22px}
 
   .stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
     padding:clamp(16px,4vh,40px) clamp(12px,4vw,40px);gap:clamp(16px,3.2vh,30px)}
@@ -103,17 +107,11 @@
 </head>
 <body>
   <main class="stage" id="stage">
-    <div class="names">
-      <span class="name">Marc</span>
-      <span class="rings" aria-hidden="true">
-        <svg viewBox="0 0 72 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="27" cy="24" r="15.5" stroke="currentColor" stroke-width="3.2"/>
-          <circle cx="45" cy="24" r="15.5" stroke="currentColor" stroke-width="3.2"/>
-        </svg>
-      </span>
-      <span class="name">Julia</span>
+    <div class="selhead">
+      <div class="sel-date">20 · 08 · 2027</div>
+      <div class="sel-names">Julia &amp; Marc</div>
+      <div class="sel-heart"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
     </div>
-    <div class="sel-date">20 · 08 · 2027</div>
 
     <div class="hero">
       <span class="glow" aria-hidden="true"></span>
